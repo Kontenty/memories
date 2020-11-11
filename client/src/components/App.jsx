@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Box, Flex, Grid, Heading, Image, ScaleFade } from "@chakra-ui/core";
 
 import memoImg from "../assets/images/memories.jpg";
@@ -26,7 +26,9 @@ const App = () => {
         <ScaleFade in={true}>
           <h1>App</h1>
           <Grid templateColumns={["1fr", null, "7fr 4fr"]}>
-            <Posts />
+            <Suspense fallback={<h3>Posts are loading ...</h3>}>
+              <Posts />
+            </Suspense>
             <Form />
           </Grid>
         </ScaleFade>
