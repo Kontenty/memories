@@ -1,10 +1,11 @@
 import React from "react";
-import { useSetRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { posts } from "../atoms";
 
 const Post = () => {
-  const postsData = useSetRecoilValue(posts);
+  const postsData = useRecoilValue(posts);
+  console.log(postsData);
   return (
     <div>
       <h3>Post</h3>
