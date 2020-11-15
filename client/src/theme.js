@@ -7,6 +7,12 @@ const theme = extendTheme({
     heading: "Lato, 'Segoe UI', sans-serif",
   },
   components: {
+    Button: {
+      baseStyle: {
+        fontWeight: "normal",
+        letterSpacing: "0.5px",
+      },
+    },
     Heading: {
       baseStyle: {
         fontWeight: "medium",
