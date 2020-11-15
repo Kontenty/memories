@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Box, Flex, Grid, Heading, Image, ScaleFade } from "@chakra-ui/core";
+import { Box, Flex, Grid, Heading, Image, ScaleFade } from "@chakra-ui/react";
 
 import memoImg from "../assets/images/memories.jpg";
 import Form from "./Form";

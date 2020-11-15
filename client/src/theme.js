@@ -1,4 +1,4 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/core";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 // Call `extendTheme` and pass your custom values
 const theme = extendTheme({
