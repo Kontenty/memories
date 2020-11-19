@@ -1,9 +1,25 @@
 import React, { Suspense } from "react";
 import { Box, Flex, Grid, Heading, Image, ScaleFade } from "@chakra-ui/react";
+import { useRecoilCallback } from "recoil";
 
 import memoImg from "../assets/images/memories.jpg";
 import Form from "./Form";
 import Posts from "./Posts";
+
+function DebugButton() {
+  const onClick = useRecoilCallback(
+    ({ snapshot }) => async () => {
+      console.debug("Atom values:");
+      for (const node of snapshot.getNodes_UNSTABLE()) {
+        const value = await snapshot.getPromise(node);
+        console.debug(node.key, value);
+      }
+    },
+    []
+  );
+
+  return <button onClick={onClick}>Dump State</button>;
+}
 
 const App = () => {
   return (
@@ -24,8 +40,7 @@ const App = () => {
       </Flex>
       <Box maxW="1200px" px="40px" mx="auto">
         <ScaleFade in={true}>
-          <h1>App</h1>
-          <Grid templateColumns={["1fr", null, "7fr 4fr"]}>
+          <Grid templateColumns={["1fr", null, "4fr 3fr"]} maxW="100%">
             <Suspense fallback={<h3>Posts are loading ...</h3>}>
               <Posts />
             </Suspense>
@@ -33,6 +48,7 @@ const App = () => {
           </Grid>
         </ScaleFade>
       </Box>
+      <DebugButton />
     </>
   );
 };

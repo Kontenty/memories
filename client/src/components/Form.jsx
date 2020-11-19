@@ -4,7 +4,7 @@ import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react";
 import FileBase64 from "react-file-base64";
 
 import { createPost } from "../api";
-import { posts } from "../atoms";
+import { postsAtom } from "../atoms";
 
 const initialPostData = {
   creator: "",
@@ -22,15 +22,18 @@ const formInputs = [
 
 const Form = () => {
   const [postData, setPostData] = useState(initialPostData);
-  const setPosts = useSetRecoilState(posts);
+  const setPosts = useSetRecoilState(postsAtom);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("submit", postData);
     try {
       const response = await createPost(postData);
-      console.log(response, response.data);
-      setPosts((oldPosts) => [...oldPosts, response.data]);
+      setPosts((oldPosts) => {
+        const newPosts = oldPosts.concat(response.data);
+        handleClear();
+        return newPosts;
+      });
     } catch (error) {
       throw error;
     }
@@ -50,7 +53,12 @@ const Form = () => {
       <Heading as="h5" size="lg" mb={3}>
         Creating a Memory
       </Heading>
-      <form noValidate onSubmit={handleSubmit}>
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        data-lpignore="true"
+      >
         <Stack spacing={3}>
           {formInputs.map((input) => (
             <Input

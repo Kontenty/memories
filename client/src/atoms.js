@@ -1,13 +1,8 @@
 import { atom, selector } from "recoil";
 import { fetchPosts } from "./api";
 
-export const posts = atom({
-  key: "posts",
-  default: [],
-});
-
 export const getPosts = selector({
-  key: "get-posts",
+  key: "getPosts",
   get: async () => {
     try {
       const { data } = await fetchPosts();
@@ -17,4 +12,9 @@ export const getPosts = selector({
       throw error;
     }
   },
+});
+
+export const postsAtom = atom({
+  key: "postsAtom",
+  default: getPosts,
 });
