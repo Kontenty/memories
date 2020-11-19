@@ -38,9 +38,9 @@ const App = () => {
           <Image src={memoImg} alt="memories" />
         </Box>
       </Flex>
-      <Box maxW="1200px" px="40px" mx="auto">
+      <Box as="main" maxW="1200px" px="40px" mx="auto" mt="50px">
         <ScaleFade in={true}>
-          <Grid templateColumns={["1fr", null, "4fr 3fr"]} maxW="100%">
+          <Grid templateColumns={["1fr", null, "5fr 3fr"]} gap={6}>
             <Suspense fallback={<h3>Posts are loading ...</h3>}>
               <Posts />
             </Suspense>

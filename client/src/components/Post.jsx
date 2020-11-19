@@ -1,15 +1,15 @@
-import { Heading, VStack, Text } from "@chakra-ui/react";
+import { Heading, VStack, Text, Box } from "@chakra-ui/react";
 import React from "react";
 
 const Post = ({ data }) => {
   return (
-    <div>
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={3}>
       <VStack spacing={3}>
         <Heading>{data.title}</Heading>
         <Text>{data.message}</Text>
-        <img src={data.selectedFile} alt="post" style={{ width: "300px" }} />
+        <img src={data.selectedFile} alt="post" />
       </VStack>
-    </div>
+    </Box>
   );
 };
 

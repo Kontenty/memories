@@ -1,4 +1,4 @@
-import { StackDivider, VStack } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import React from "react";
 import { useRecoilValue } from "recoil";
 
@@ -11,11 +11,11 @@ const Posts = () => {
   console.log(postsData);
   return (
     <div>
-      <VStack divider={<StackDivider borderColor="gray.200" />} spacing={5}>
+      <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
         {postsData.map((post) => (
           <Post key={post._id} data={post} />
         ))}
-      </VStack>
+      </Grid>
     </div>
   );
 };
