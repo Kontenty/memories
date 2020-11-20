@@ -12,4 +12,12 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({ storage });
+const fileFilter = ({ req, file, callback }) => {
+  if (file.mimetype.startsWith("image")) {
+    callback(null, true);
+  } else {
+    callback("It has to be image file", false);
+  }
+};
+
+export const upload = multer({ storage, fileFilter });
