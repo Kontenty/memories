@@ -7,6 +7,7 @@ import path from "path";
 const __dirname = path.resolve();
 
 import postRoutes from "./routes/posts.js";
+import imageRoutes from "./routes/image.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
     .status(200)
     .sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
+app.use("/image", imageRoutes);
 app.use("/api/posts", postRoutes);
 
 const CONNECTION_URL = "mongodb://localhost/memories";

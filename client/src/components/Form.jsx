@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react";
-import FileBase64 from "react-file-base64";
 
 import { createPost } from "../api";
 import { postsAtom } from "../atoms";
@@ -11,7 +10,7 @@ const initialPostData = {
   title: "",
   message: "",
   tags: "",
-  selectedFile: "",
+  file: "",
 };
 const formInputs = [
   { name: "creator", placeholder: "Creator" },
@@ -27,11 +26,16 @@ const Form = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("submit", postData);
+    const formData = new FormData();
+    for (const key in postData) {
+      formData.append(key, postData[key]);
+    }
+
     try {
-      const response = await createPost(postData);
+      const response = await createPost(formData);
       setPosts((oldPosts) => {
         const newPosts = oldPosts.concat(response.data);
-        handleClear();
+        // handleClear();
         return newPosts;
       });
     } catch (error) {
@@ -42,6 +46,10 @@ const Form = () => {
   const handleInput = (event) => {
     const { name, value } = event.target;
     setPostData({ ...postData, [name]: value });
+  };
+
+  const handleFileInput = (ev) => {
+    setPostData({ ...postData, file: ev.target.files[0] });
   };
 
   const handleClear = () => {
@@ -69,13 +77,7 @@ const Form = () => {
             />
           ))}
           <Box>
-            <FileBase64
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setPostData({ ...postData, selectedFile: base64 })
-              }
-            />
+            <input type="file" name="file" onChange={handleFileInput} />
           </Box>
           <Button colorScheme="blue" type="submit">
             Submit

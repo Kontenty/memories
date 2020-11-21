@@ -6,4 +6,9 @@ const url =
     : "/api/posts";
 
 export const fetchPosts = async () => await axios.get(url);
-export const createPost = async (newPost) => await axios.post(url, newPost);
+export const createPost = async (newPost) =>
+  await axios.post(url, newPost, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
