@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react";
+import { GrCloudUpload } from "react-icons/gr";
+import styled from "@emotion/styled";
 
 import { createPost } from "../api";
 import { postsAtom } from "../atoms";
+
+const FileInput = styled.input`
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+`;
 
 const initialPostData = {
   creator: "",
@@ -22,6 +33,7 @@ const formInputs = [
 const Form = () => {
   const [postData, setPostData] = useState(initialPostData);
   const setPosts = useSetRecoilState(postsAtom);
+  const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,7 +89,22 @@ const Form = () => {
             />
           ))}
           <Box>
-            <input type="file" name="file" onChange={handleFileInput} />
+            <FileInput
+              type="file"
+              name="file"
+              id="file-input"
+              onChange={handleFileInput}
+              ref={fileInputRef}
+            />
+            <Button
+              leftIcon={<GrCloudUpload />}
+              variant="outline"
+              mr={2}
+              onClick={() => fileInputRef.current.click()}
+            >
+              Choose an image
+            </Button>
+            <span>{postData?.file?.name || ""}</span>
           </Box>
           <Button colorScheme="blue" type="submit">
             Submit
