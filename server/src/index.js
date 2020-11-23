@@ -1,48 +1,48 @@
-import express from "express";
-import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import cors from "cors";
-import morgan from "morgan";
-import path from "path";
 import log from "loglevel";
 
-import postRoutes from "./routes/posts.js";
-import imageRoutes from "./routes/image.js";
-import errorMiddleware from "./middleware/error.js";
+import app from "./app.js";
 
-const __dirname = path.resolve();
 log.setLevel("info");
-
-const app = express();
-
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(morgan("dev"));
-app.use(cors());
-
-app.use(express.static(path.join(__dirname, "/../client/build")));
-app.get("/", (req, res) => {
-  res
-    .status(200)
-    .sendFile(path.join(__dirname, "../client/build", "index.html"));
-});
-app.use("/image", imageRoutes);
-app.use("/api/posts", postRoutes);
-// general error handler
-app.use(errorMiddleware);
 
 const CONNECTION_URL = "mongodb://localhost/memories";
 const PORT = process.env.PORT || 5000;
 
+let server;
 mongoose.set("useFindAndModify", false);
 mongoose
   .connect(CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() =>
-    app.listen(PORT, () =>
-      log.info(`Server running on port ${PORT} and connected to db`)
-    )
-  )
+  .then(() => {
+    log.info("Connected to mongoDB");
+    server = app.listen(PORT, () => log.info(`Server running on port ${PORT}`));
+  })
   .catch((error) => log.error(`Cannot connect db: ${error.message}`));
+
+const exitHandler = () => {
+  if (server) {
+    server.close(() => {
+      log.info("Server closed");
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+};
+
+const unexpectedErrorHandler = (error) => {
+  log.error(error);
+  exitHandler();
+};
+
+process.on("uncaughtException", unexpectedErrorHandler);
+process.on("unhandledRejection", unexpectedErrorHandler);
+
+process.on("SIGTERM", () => {
+  log.info("SIGTERM received");
+  if (server) {
+    server.close();
+  }
+});

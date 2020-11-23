@@ -9,12 +9,15 @@ export const getPosts = async (req, res) => {
   }
 };
 export const createPost = async (req, res) => {
-  const post = req.body;
-  const file = req.file;
+  const { file, body: post } = req;
   if (req.err) {
-    return res.status(409).json({ error: req.err });
+    res.status(409).json({ error: req.err });
+    return;
   }
-  if (file) post.selectedFile = `http://localhost:5000/image/${file.filename}`;
+  if (file) {
+    post.selectedFile = `http://localhost:5000/api/image/${file.filename}`;
+  }
+
   const newPost = new PostMessage(post);
   try {
     await newPost.save();

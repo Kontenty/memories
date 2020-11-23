@@ -5,7 +5,7 @@ const storage = multer.diskStorage({
     callback(null, "images");
   },
   filename: (req, file, callback) => {
-    const uniqueSuffix = "_" + Math.random().toString(36).substr(2, 9);
+    const uniqueSuffix = `_${Math.random().toString(36).substr(2, 9)}`;
     const extDotPos = file.originalname.lastIndexOf(".");
     const ext = file.originalname.substring(
       extDotPos,
@@ -26,4 +26,6 @@ const fileFilter = (req, file, callback) => {
   }
 };
 
-export const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter });
+
+export default upload;
