@@ -4,10 +4,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
 import path from "path";
-const __dirname = path.resolve();
+import log from "loglevel";
 
 import postRoutes from "./routes/posts.js";
 import imageRoutes from "./routes/image.js";
+import errorMiddleware from "./middleware/error.js";
+
+const __dirname = path.resolve();
+log.setLevel("info");
 
 const app = express();
 
@@ -24,10 +28,13 @@ app.get("/", (req, res) => {
 });
 app.use("/image", imageRoutes);
 app.use("/api/posts", postRoutes);
+// general error handler
+app.use(errorMiddleware);
 
 const CONNECTION_URL = "mongodb://localhost/memories";
 const PORT = process.env.PORT || 5000;
 
+mongoose.set("useFindAndModify", false);
 mongoose
   .connect(CONNECTION_URL, {
     useNewUrlParser: true,
@@ -35,9 +42,7 @@ mongoose
   })
   .then(() =>
     app.listen(PORT, () =>
-      console.log(`Server running on port ${PORT} and connected to db`)
+      log.info(`Server running on port ${PORT} and connected to db`)
     )
   )
-  .catch((error) => console.log(`Cannot connect db: ${error.message}`));
-
-mongoose.set("useFindAndModify", false);
+  .catch((error) => log.error(`Cannot connect db: ${error.message}`));
