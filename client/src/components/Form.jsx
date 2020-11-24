@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react";
-import { GrCloudUpload } from "react-icons/gr";
+import { AiOutlineUpload } from "react-icons/ai";
 import styled from "@emotion/styled";
 
 import { createPost } from "../api";
@@ -69,7 +69,7 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <Box bg="white" p={4} borderRadius="lg">
       <Heading as="h5" size="lg" mb={3}>
         Creating a Memory
       </Heading>
@@ -97,7 +97,7 @@ const Form = () => {
               ref={fileInputRef}
             />
             <Button
-              leftIcon={<GrCloudUpload />}
+              leftIcon={<AiOutlineUpload />}
               variant="outline"
               mr={2}
               onClick={() => fileInputRef.current.click()}
@@ -114,7 +114,7 @@ const Form = () => {
           </Button>
         </Stack>
       </form>
-    </div>
+    </Box>
   );
 };
 
