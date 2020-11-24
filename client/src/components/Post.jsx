@@ -20,7 +20,9 @@ const Post = ({ data }) => {
   return (
     <Box bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box borderRadius="lg" overflow="hidden" pos="relative">
-        <img src={data.selectedFile} alt="post" />
+        <picture>
+          <img src={data.selectedFile} alt="post bg" />
+        </picture>
         <Box pos="absolute" top="0" w="100%" px={4} pt={2} color="pink.50">
           <Flex justify="space-between">
             <Text>{data.creator}</Text>
