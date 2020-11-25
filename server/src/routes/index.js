@@ -5,6 +5,6 @@ import postRouter from "./post.route.js";
 const router = express.Router();
 
 router.use("/image", imageRouter);
-router.use("/posts", postRouter);
+router.use("/api/posts", postRouter);
 
 export default router;
