@@ -15,7 +15,7 @@ export const createPost = async (req, res) => {
     return;
   }
   if (image) {
-    post.selectedFile = `http://localhost:5000/api/image/${image}`;
+    post.selectedFile = `http://localhost:5000/image/${image}`;
   }
 
   const newPost = new PostMessage(post);
