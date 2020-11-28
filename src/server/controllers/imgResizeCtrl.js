@@ -10,11 +10,12 @@ const imageResize = async (req, res, next) => {
   if (!file) next();
 
   const newFilename = file.originalname.replace(/\.[^/.]+$/, "") + uniqueSuffix;
+  const uploadPath = path.join(process.cwd(), "/uploads/");
 
   await sharp(path.resolve(file.path))
     .resize({ width: 500 })
     .jpeg({ quality: 80 })
-    .toFile(`images/${newFilename}.jpg`)
+    .toFile(`${uploadPath}/${newFilename}.jpg`)
     .then((sharpRes) => {
       log.info("Done!", sharpRes);
       try {
@@ -27,7 +28,7 @@ const imageResize = async (req, res, next) => {
       log.error("Error processing files, let's clean it up", err);
       try {
         fs.unlinkSync(path.resolve(file.path));
-        fs.unlinkSync(`images/${newFilename},jpg`);
+        fs.unlinkSync(`${uploadPath}/${newFilename},jpg`);
       } catch (e) {
         log.error(e);
       }

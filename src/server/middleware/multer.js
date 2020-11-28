@@ -1,8 +1,10 @@
 import multer from "multer";
+import path from "path";
 
+const uploadPath = path.join(process.cwd(), "/uploads/");
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "images");
+    callback(null, uploadPath);
   },
   filename: (req, file, callback) => {
     const uniqueSuffix = `_${Math.random().toString(36).substr(2, 9)}`;

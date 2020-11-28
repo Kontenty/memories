@@ -7,8 +7,6 @@ import path from "path";
 import errorMiddleware from "./middleware/error.js";
 import routes from "./routes/index.js";
 
-const __dirname = path.resolve();
-
 const app = express();
 
 app.set("views", path.join(__dirname, "views"));
@@ -19,11 +17,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(morgan("dev"));
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, "/../client/build")));
+app.use(express.static(path.join(__dirname, "/../../build")));
 app.get("/", (req, res) => {
-  res
-    .status(200)
-    .sendFile(path.join(__dirname, "../client/build", "index.html"));
+  res.status(200).sendFile(path.join(__dirname, "../../build", "index.html"));
 });
 app.use("/", routes);
 
