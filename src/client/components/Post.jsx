@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import {
   Heading,
   VStack,
@@ -7,6 +8,7 @@ import {
   Flex,
   IconButton,
   ButtonGroup,
+  useToast,
 } from "@chakra-ui/react";
 import {
   AiOutlineHeart,
@@ -16,7 +18,32 @@ import {
 } from "react-icons/ai";
 import moment from "moment";
 
+import { postsAtom } from "../atoms";
+import { deletePost } from "../api";
+
 const Post = ({ data }) => {
+  const toast = useToast();
+  const [posts, setPosts] = useRecoilState(postsAtom);
+
+  const handleDelete = async () => {
+    const id = data._id;
+    const deletedIndex = posts.findIndex((post) => id === post._id);
+    const newPosts = [...posts];
+    newPosts.splice(deletedIndex, 1);
+    try {
+      await deletePost(id);
+      toast({
+        title: "Post was removed.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setPosts(newPosts);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Box bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box borderRadius="lg" overflow="hidden" pos="relative">
@@ -44,7 +71,7 @@ const Post = ({ data }) => {
         <ButtonGroup isAttached variant="outline">
           <IconButton icon={<AiOutlineLike />} />
           <IconButton icon={<AiOutlineEdit />} />
-          <IconButton icon={<AiOutlineDelete />} />
+          <IconButton icon={<AiOutlineDelete />} onClick={handleDelete} />
         </ButtonGroup>
       </VStack>
     </Box>

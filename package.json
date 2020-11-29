@@ -7,11 +7,10 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start:client": "react-app-rewired start",
-    "build:client": "react-app-rewired build",
-    "start:server": "cross-env NODE_ENV=development nodemon src/server/index.js",
-    "build:server": "sucrase ./src/server -d ./dist/server --transforms imports",
-    "start": "yarn run start:server && yarn run start:client"
+    "client": "react-app-rewired start",
+    "client:build": "react-app-rewired build",
+    "server": "cross-env NODE_ENV=development nodemon src/server/index.js",
+    "server:build": "sucrase ./src/server -d ./dist/server --transforms imports"
   },
   "keywords": [],
   "author": "",
