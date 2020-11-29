@@ -11,6 +11,7 @@ export const getPosts = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 export const createPost = async (req, res) => {
   const { image, body: post } = req;
   if (req.err) {
@@ -19,6 +20,9 @@ export const createPost = async (req, res) => {
   }
   if (image) {
     post.selectedFile = `http://localhost:5000/image/${image}`;
+  }
+  if (typeof post.tags === "string") {
+    post.tags = post.tags.split(",").map((tag) => tag.trim());
   }
 
   const newPost = new PostMessage(post);
