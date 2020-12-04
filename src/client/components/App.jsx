@@ -5,6 +5,7 @@ import { useRecoilCallback } from "recoil";
 import memoImg from "../assets/images/memories.jpg";
 import Form from "./Form";
 import Posts from "./Posts";
+import ErrorBoundary from "../errorBoundary";
 
 function DebugButton() {
   const onClick = useRecoilCallback(
@@ -41,10 +42,14 @@ const App = () => {
       <Box as="main" maxW="1200px" px="40px" mx="auto" mt="50px">
         <ScaleFade in={true}>
           <Grid templateColumns={["1fr", null, "5fr 3fr"]} gap={6}>
-            <Suspense fallback={<h3>Posts are loading ...</h3>}>
-              <Posts />
-              <Form />
-            </Suspense>
+            <ErrorBoundary
+              fallback={<h3>Error - posts could not be loaded</h3>}
+            >
+              <Suspense fallback={<h3>Posts are loading ...</h3>}>
+                <Posts />
+                <Form />
+              </Suspense>
+            </ErrorBoundary>
           </Grid>
         </ScaleFade>
       </Box>
