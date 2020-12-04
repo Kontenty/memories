@@ -8,7 +8,6 @@ import Post from "./Post";
 
 const Posts = () => {
   const postsData = useRecoilValue(postsAtom);
-  console.log(postsData);
   return (
     <div>
       <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>

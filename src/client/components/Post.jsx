@@ -19,7 +19,7 @@ import {
 import moment from "moment";
 
 import { postsAtom, currentPostIdAtom } from "../atoms";
-import { deletePost } from "../api";
+import { deletePost, likePost } from "../api";
 
 const Post = ({ data }) => {
   const toast = useToast();
@@ -42,6 +42,20 @@ const Post = ({ data }) => {
       setPosts(newPosts);
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleLikePost = async () => {
+    try {
+      const { data: newPost } = await likePost(data._id);
+      setPosts((oldPosts) => {
+        const newPosts = oldPosts.map((p) =>
+          p._id === data._id ? newPost : p
+        );
+        return newPosts;
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,7 +84,7 @@ const Post = ({ data }) => {
       <VStack spacing={3} pb={4}>
         <Text>{data.message}</Text>
         <ButtonGroup isAttached variant="outline">
-          <IconButton icon={<AiOutlineLike />} />
+          <IconButton icon={<AiOutlineLike />} onClick={handleLikePost} />
           <IconButton
             icon={<AiOutlineEdit />}
             onClick={() => setId(data._id)}
