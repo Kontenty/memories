@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import log from "loglevel";
+import dotenv from "dotenv";
 
 import app from "./app.js";
 
+dotenv.config();
 log.setLevel("info");
 
-const CONNECTION_URL = "mongodb://localhost/memories";
-const PORT = process.env.PORT || 5000;
+const { CONNECTION_URL } = process.env;
+const PORT = process.env.NODE_PORT || 5000;
 
 let server;
 mongoose.set("useFindAndModify", false);

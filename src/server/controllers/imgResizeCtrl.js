@@ -7,7 +7,7 @@ const uniqueSuffix = `_${Math.random().toString(36).substr(2, 9)}`;
 
 const imageResize = async (req, res, next) => {
   const { file } = req;
-  if (!file) next();
+  if (!file) return next();
 
   const newFilename = file.originalname.replace(/\.[^/.]+$/, "") + uniqueSuffix;
   const uploadPath = path.join(process.cwd(), "/uploads/");
@@ -35,7 +35,7 @@ const imageResize = async (req, res, next) => {
     });
 
   req.image = `${newFilename}.jpg`;
-  next();
+  return next();
 };
 
 export default imageResize;

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import React, { useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react";
 import { AiOutlineUpload } from "react-icons/ai";
 import styled from "@emotion/styled";
 
-import { createPost } from "../api";
-import { postsAtom } from "../atoms";
+import { createPost, updatePost } from "../api";
+import { postsAtom, currentPostIdAtom } from "../atoms";
 
 const FileInput = styled.input`
   width: 0.1px;
@@ -32,7 +32,8 @@ const formInputs = [
 
 const Form = () => {
   const [postData, setPostData] = useState(initialPostData);
-  const setPosts = useSetRecoilState(postsAtom);
+  const [posts, setPosts] = useRecoilState(postsAtom);
+  const [currentId, setCurrentId] = useRecoilState(currentPostIdAtom);
   const fileInputRef = useRef(null);
 
   const handleSubmit = async (event) => {
@@ -44,10 +45,14 @@ const Form = () => {
     }
 
     try {
-      const response = await createPost(formData);
+      const { data } = currentId
+        ? await updatePost(currentId, formData)
+        : await createPost(formData);
+      handleClear();
       setPosts((oldPosts) => {
-        const newPosts = oldPosts.concat(response.data);
-        // handleClear();
+        const newPosts = currentId
+          ? oldPosts.map((p) => (p._id === currentId ? data : p))
+          : oldPosts.concat(data);
         return newPosts;
       });
     } catch (error) {
@@ -66,12 +71,20 @@ const Form = () => {
 
   const handleClear = () => {
     setPostData(initialPostData);
+    if (currentId) setCurrentId(null);
   };
+
+  useEffect(() => {
+    if (currentId) {
+      const updatedPost = posts.find((p) => p._id === currentId);
+      setPostData(updatedPost);
+    }
+  }, [currentId]);
 
   return (
     <Box bg="white" p={4} borderRadius="lg">
       <Heading as="h5" size="lg" mb={3}>
-        Creating a Memory
+        {currentId ? "Edit your Memory" : "Creating a Memory"}
       </Heading>
       <form
         noValidate

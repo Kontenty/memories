@@ -12,4 +12,11 @@ export const createPost = (newPost) =>
       "content-type": "multipart/form-data",
     },
   });
+export const updatePost = (id, post) =>
+  axios.patch(`${url}/${id}`, post, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
+
 export const deletePost = (id) => axios.delete(url, { data: { id } });

@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   Heading,
   VStack,
@@ -18,12 +18,13 @@ import {
 } from "react-icons/ai";
 import moment from "moment";
 
-import { postsAtom } from "../atoms";
+import { postsAtom, currentPostIdAtom } from "../atoms";
 import { deletePost } from "../api";
 
 const Post = ({ data }) => {
   const toast = useToast();
   const [posts, setPosts] = useRecoilState(postsAtom);
+  const setId = useSetRecoilState(currentPostIdAtom);
 
   const handleDelete = async () => {
     const id = data._id;
@@ -70,7 +71,10 @@ const Post = ({ data }) => {
         <Text>{data.message}</Text>
         <ButtonGroup isAttached variant="outline">
           <IconButton icon={<AiOutlineLike />} />
-          <IconButton icon={<AiOutlineEdit />} />
+          <IconButton
+            icon={<AiOutlineEdit />}
+            onClick={() => setId(data._id)}
+          />
           <IconButton icon={<AiOutlineDelete />} onClick={handleDelete} />
         </ButtonGroup>
       </VStack>

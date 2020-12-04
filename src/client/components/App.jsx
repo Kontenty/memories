@@ -43,8 +43,8 @@ const App = () => {
           <Grid templateColumns={["1fr", null, "5fr 3fr"]} gap={6}>
             <Suspense fallback={<h3>Posts are loading ...</h3>}>
               <Posts />
+              <Form />
             </Suspense>
-            <Form />
           </Grid>
         </ScaleFade>
       </Box>

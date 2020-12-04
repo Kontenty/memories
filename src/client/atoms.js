@@ -18,3 +18,8 @@ export const postsAtom = atom({
   key: "postsAtom",
   default: getPosts,
 });
+
+export const currentPostIdAtom = atom({
+  key: "currentId",
+  default: null,
+});
