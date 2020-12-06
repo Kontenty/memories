@@ -1,8 +1,19 @@
 {
   "name": "memories",
   "version": "0.1.0",
-  "description": "memories full-stack app",
-  "main": "index.js",
+  "description": "memories full-stack app - react cleint and node + mongodb backend",
+  "main": "src/server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kontenty/memories"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "full-stack"
+  ],
+  "author": "Konrad Górski",
+  "license": "ISC",
   "engines": {
     "node": ">=14.0.0"
   },
@@ -14,9 +25,6 @@
     "server:start": "cross-env NODE_ENV=development nodemon src/server/index.js",
     "server:build": "babel src/server --delete-dir-on-start --out-dir dist/server --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",

@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "14.15.0"
+
+install:
+  - npm install
+
+before_deploy:
+  - yarn build
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "heroku_api_key"
+  app: bring-memories
+  on: master
