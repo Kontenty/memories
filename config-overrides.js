@@ -12,6 +12,7 @@ module.exports = {
     paths.appSrc = path.resolve(__dirname, "src/client");
     paths.appHtml = path.resolve(__dirname, "src/client/public/index.html");
     paths.appPublic = path.resolve(__dirname, "src/client/public");
+    paths.appBuild = path.resolve(__dirname, "dist/client");
     return paths;
   },
 };

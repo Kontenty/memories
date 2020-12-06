@@ -17,9 +17,11 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(morgan("dev"));
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, "/../../build")));
+app.use(express.static(path.join(process.cwd(), "/dist/client")));
 app.get("/", (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, "../../build", "index.html"));
+  res
+    .status(200)
+    .sendFile(path.join(process.cwd(), "/dist/client", "index.html"));
 });
 app.use("/", routes);
 

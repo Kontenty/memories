@@ -7,15 +7,20 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "client": "react-app-rewired start",
+    "start": "cross-env NODE_ENV=production node dist/server/index.js",
+    "build": "yarn run server:build && yarn run client:build",
+    "client:start": "react-app-rewired start",
     "client:build": "react-app-rewired build",
-    "server": "cross-env NODE_ENV=development nodemon src/server/index.js",
-    "server:build": "sucrase ./src/server -d ./dist/server --transforms imports"
+    "server:start": "cross-env NODE_ENV=development nodemon src/server/index.js",
+    "server:build": "babel src/server --delete-dir-on-start --out-dir dist/server --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
