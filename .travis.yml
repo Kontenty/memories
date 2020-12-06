@@ -5,6 +5,10 @@ node_js:
 install:
   - npm install
 
+branches:
+  only:
+    - master
+
 before_deploy:
   - yarn build
 
