@@ -2,8 +2,7 @@ language: node_js
 node_js:
   - "14.15.0"
 
-install:
-  - npm install
+script: "true"
 
 branches:
   only:
