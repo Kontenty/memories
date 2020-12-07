@@ -6,7 +6,7 @@ script: "true"
 
 branches:
   only:
-    - master
+    - main
 
 before_deploy:
   - yarn build
@@ -14,6 +14,6 @@ before_deploy:
 deploy:
   provider: heroku
   api_key:
-    secure: "heroku_api_key"
+    secure: heroku_api_key
   app: bring-memories
-  on: master
+  on: main
