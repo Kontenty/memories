@@ -21,6 +21,9 @@ import moment from "moment";
 import { postsAtom, currentPostIdAtom } from "../atoms";
 import { deletePost, likePost } from "../api";
 
+const url =
+  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "";
+
 const Post = ({ data }) => {
   const toast = useToast();
   const [posts, setPosts] = useRecoilState(postsAtom);
@@ -63,7 +66,7 @@ const Post = ({ data }) => {
     <Box bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box borderRadius="lg" overflow="hidden" pos="relative">
         <picture>
-          <img src={data.selectedFile} alt="post bg" />
+          <img src={url + data.selectedFile} alt="post bg" />
         </picture>
         <Box pos="absolute" top="0" w="100%" px={4} pt={2} color="pink.50">
           <Flex justify="space-between">

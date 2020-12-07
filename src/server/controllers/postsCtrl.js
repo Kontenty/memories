@@ -20,7 +20,7 @@ export const createPost = async (req, res) => {
     return;
   }
   if (image) {
-    post.selectedFile = `http://localhost:5000/image/${image}`;
+    post.selectedFile = `/image/${image}`;
   }
   if (typeof post.tags === "string") {
     post.tags = post.tags.split(",").map((tag) => tag.trim());

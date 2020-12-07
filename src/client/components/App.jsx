@@ -53,7 +53,7 @@ const App = () => {
           </Grid>
         </ScaleFade>
       </Box>
-      <DebugButton />
+      {process.env.NODE_ENV === "development" && <DebugButton />}
     </>
   );
 };

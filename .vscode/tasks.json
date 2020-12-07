@@ -3,14 +3,14 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "server",
+      "script": "server:start",
       "problemMatcher": ["$eslint-compact"],
       "label": "npm: server",
       "detail": "cross-env NODE_ENV=development nodemon src/server/index.js"
     },
     {
       "type": "npm",
-      "script": "client",
+      "script": "client:start",
       "problemMatcher": ["$eslint-compact"],
       "label": "npm: client",
       "detail": "react-app-rewired start"

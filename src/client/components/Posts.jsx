@@ -10,7 +10,7 @@ const Posts = () => {
   const postsData = useRecoilValue(postsAtom);
   return (
     <div>
-      <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
+      <Grid templateColumns="repeat(auto-fit, minmax(300px, 500px))" gap={4}>
         {postsData.map((post) => (
           <Post key={post._id} data={post} />
         ))}
