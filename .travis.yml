@@ -1,19 +1,15 @@
 language: node_js
 node_js:
-  - "14.15.0"
-
+  - 14.15.0
 script: "true"
-
 branches:
   only:
     - main
-
 before_deploy:
   - yarn build
-
 deploy:
   provider: heroku
   api_key:
-    secure: heroku_api_key
+    secure: UvYWqPMRMhLiHuZ98fCOcY+j7imixq8WhxAhNvI0yoVjCCJOjCosCBkUACCM+hw8h4Cdwq5q5nCz/pF5D734IgPmafYwhPSuAmOA4l4OZVOea5ctuanVaPkxBIZb15qNRfevwkIRvGfe/ZdYCRjrZcEw1i+k/1m7kFBOetFCZScYJHZJCTQrVPOqnQNRIWfkA6sN7cC1LobW9/Se3dUAGX2iCifrPfTOy+rMz7s05SjvnzTEJTKPpUFVpvVGVzYVbWJij9Xa1spnjJvzNR94rusa2TzYBB0jJmqPZeGAl6bMXaqWup0V4SayIetJq/ODfR5bH1/UfZHfYvD/snamCkL40gfidonsWT3eydKpuFsOf72IzS9G6OzSzxttDs7u1t59dUOfKBIpWuHI97SEvRUdtw3cw1TLS1IPB59T+C2egzlOpCvTq4Lo5HMMcj2PtYZp9/qXcUsH5EoZfxzpPng1GBTXHwooWkZFd7dMGGIEU9LdXGYWjGyCvAP1dKrS/qdExztVTe8ScZX/D/MV49GuYJhmPL+SjslWeiMhGwBQmo+0tlqYBJUkXVygWMiS35jvgcLziRCKXOUOiGdZSN+VPKT2t6YU55FChb5Wqy98U6cy62tNtUZ1snqBecJSuBLFZ5WS3j5mwtS1APoDPaivU1TqsbXwiVy5SLF4o04=
   app: bring-memories
   on: main
