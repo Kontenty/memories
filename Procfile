@@ -1,0 +1,1 @@
+web: yarn start -p $NODE_PORT

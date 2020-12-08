@@ -8,7 +8,7 @@ dotenv.config();
 log.setLevel("info");
 
 const { CONNECTION_URL } = process.env;
-const PORT = process.env.NODE_PORT || 5000;
+const PORT = process.env.NODE_PORT || process.env.PORT || 5000;
 
 let server;
 mongoose.set("useFindAndModify", false);
