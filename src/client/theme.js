@@ -32,8 +32,6 @@ const theme = extendTheme({
   },
 });
 
-console.log(theme);
-
 export const ThemeProvider = ({ children }) => (
   <ChakraProvider theme={theme}>{children}</ChakraProvider>
 );
