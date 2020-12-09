@@ -28,11 +28,9 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(process.cwd(), "/dist/client")));
+app.use(express.static(path.resolve("dist/client")));
 app.get("/", (req, res) => {
-  res
-    .status(200)
-    .sendFile(path.join(process.cwd(), "/dist/client", "index.html"));
+  res.status(200).sendFile(path.resolve("dist/client", "index.html"));
 });
 app.use("/", routes);
 

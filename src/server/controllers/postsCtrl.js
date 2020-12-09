@@ -46,7 +46,7 @@ export const deletePost = async (req, res) => {
     const image = selectedFile.match(/\/[a-z0-9_-]*.(jpg|png)$/g);
     await PostMessage.deleteOne(post);
     try {
-      fs.unlinkSync(path.join(process.cwd(), "/uploads", image[0]));
+      fs.unlinkSync(path.resolve("uploads", image[0]));
     } catch (error) {
       log.error("Error when removing image", error);
     }
