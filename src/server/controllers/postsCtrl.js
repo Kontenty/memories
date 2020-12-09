@@ -48,7 +48,7 @@ export const deletePost = async (req, res) => {
     try {
       fs.unlinkSync(path.join(process.cwd(), "/uploads", image[0]));
     } catch (error) {
-      log.error(error);
+      log.error("Error when removing image", error);
     }
     res.status(200).json({ message: " post deleted", post });
   } catch (error) {

@@ -63,7 +63,13 @@ const Post = ({ data }) => {
   };
 
   return (
-    <Box bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box
+      bg="white"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      maxW="500px"
+    >
       <Box borderRadius="lg" overflow="hidden" pos="relative">
         <picture>
           <img src={url + data.selectedFile} alt="post bg" />

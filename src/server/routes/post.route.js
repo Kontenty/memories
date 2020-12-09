@@ -7,7 +7,7 @@ import {
   likePost,
   updatePost,
 } from "../controllers/postsCtrl.js";
-import imageResize from "../controllers/imgResizeCtrl.js";
+import imageResize from "../middleware/imageResize.js";
 
 const router = express.Router();
 
