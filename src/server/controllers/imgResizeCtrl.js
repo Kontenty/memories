@@ -21,6 +21,7 @@ const imageResize = async (req, res, next) => {
       try {
         fs.unlinkSync(path.resolve(file.path));
       } catch (error) {
+        log.error("Error when removing unoptimized image");
         log.error(error);
       }
     })
@@ -28,9 +29,9 @@ const imageResize = async (req, res, next) => {
       log.error("Error processing files, let's clean it up", err);
       try {
         fs.unlinkSync(path.resolve(file.path));
-        fs.unlinkSync(`${uploadPath}/${newFilename},jpg`);
+        fs.unlinkSync(`${uploadPath}/${newFilename}.jpg`);
       } catch (e) {
-        log.error(e);
+        log.error("Error when removing image", e);
       }
     });
 
