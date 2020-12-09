@@ -9,6 +9,7 @@ import {
   IconButton,
   ButtonGroup,
   useToast,
+  Badge,
 } from "@chakra-ui/react";
 import {
   AiOutlineHeart,
@@ -90,8 +91,16 @@ const Post = ({ data }) => {
           <Heading>{data.title}</Heading>
         </Box>
       </Flex>
+
       <VStack spacing={3} pb={4}>
         <Text>{data.message}</Text>
+        <Flex>
+          {data.tags.map((tag, i) => (
+            <Badge key={`${i}_${tag}`} mr={2}>
+              # {tag}
+            </Badge>
+          ))}
+        </Flex>
         <ButtonGroup isAttached variant="outline">
           <IconButton icon={<AiOutlineLike />} onClick={handleLikePost} />
           <IconButton
